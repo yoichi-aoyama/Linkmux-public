@@ -38,6 +38,20 @@
 - Arc
 - Chromium
 
+## Google Chrome プロファイル対応 ※AppStore版は非対応
+
+- ブラウザの一覧にプロファイルが表示されます。
+
+## URL、ドメイン設定
+
+- 特定のURL、ドメインを開くブラウザが決まっている場合は、設定しておくことでブラウザ選択をスキップできます。
+
+<img width="464" height="408" alt="image" src="https://github.com/user-attachments/assets/2978b843-f7de-433d-98ae-f40aa6bc1ebe" />
+
+## デフォルトブラウザ
+
+- URL、ドメイン設定に該当しなかった場合にブラウザ選択ではなく、デフォルトブラウザで開くことができます。
+
 ## ライセンス
 
 [MIT](./LICENSE)
