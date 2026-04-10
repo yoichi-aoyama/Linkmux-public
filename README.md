@@ -19,7 +19,7 @@ brew install --cask linkmux
 
 ### 手動インストール
 
-1. ダウンロードした `.dmg` を開き、`Linkmux.app` を `/Applications` フォルダにドラッグする
+1. ダウンロードした `.zip` を開き、`Linkmux.app` を `/Applications` フォルダにドラッグする
 2. **システム設定 → デスクトップと Dock → デフォルトの Web ブラウザ → Linkmux** に設定する
 
 ## 使い方
