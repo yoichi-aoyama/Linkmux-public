@@ -1,0 +1,45 @@
+name: Update Homebrew Tap
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-tap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compute SHA256
+        id: sha
+        run: |
+          URL="https://github.com/yoichi-aoyama/Linkmux-public/releases/download/${{ github.event.release.tag_name }}/Linkmux.zip"
+          SHA256=$(curl -sL "$URL" | shasum -a 256 | awk '{print $1}')
+          echo "sha256=$SHA256" >> $GITHUB_OUTPUT
+
+      - name: Update Homebrew tap
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        run: |
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"
+          SHA256="${{ steps.sha.outputs.sha256 }}"
+
+          CASK_CONTENT="cask \"linkmux\" do
+            version \"$VERSION\"
+            sha256 \"$SHA256\"
+
+            url \"https://github.com/yoichi-aoyama/Linkmux-public/releases/download/v#{version}/Linkmux.zip\"
+            name \"Linkmux\"
+            desc \"URL rule-based browser selector for macOS\"
+            homepage \"https://github.com/yoichi-aoyama/Linkmux-public\"
+
+            app \"Linkmux.app\"
+          end
+          "
+
+          FILE_SHA=$(gh api repos/yoichi-aoyama/homebrew-linkmux/contents/Casks/linkmux.rb --jq '.sha')
+
+          gh api repos/yoichi-aoyama/homebrew-linkmux/contents/Casks/linkmux.rb \
+            --method PUT \
+            --field message="Update Linkmux cask to v$VERSION" \
+            --field content="$(printf '%s' "$CASK_CONTENT" | base64 -w 0)" \
+            --field sha="$FILE_SHA"
