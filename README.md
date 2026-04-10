@@ -10,6 +10,15 @@
 
 ## インストール
 
+### Homebrew（推奨）
+
+```sh
+brew tap yoichi-aoyama/linkmux
+brew install --cask linkmux
+```
+
+### 手動インストール
+
 1. ダウンロードした `.dmg` を開き、`Linkmux.app` を `/Applications` フォルダにドラッグする
 2. **システム設定 → デスクトップと Dock → デフォルトの Web ブラウザ → Linkmux** に設定する
 
